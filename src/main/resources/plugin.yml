@@ -1,0 +1,6 @@
+name: CropDrops
+version: 1.0
+author: sudura
+main: me.sudura.cropdrops.CropDrops
+api-version: 1.19
+depend: [mcMMO]
