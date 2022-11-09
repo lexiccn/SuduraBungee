@@ -17,7 +17,7 @@ public class TemplateCommand extends BaseCommand {
 
     @Default
     public void onDefault(CommandSender sender) {
-        sender.sendMessage(plugin.getMessages().getString("default"));
+        sender.sendMessage(plugin.getMessages().getString("command.default"));
     }
 
     @Subcommand("reload")
@@ -25,11 +25,11 @@ public class TemplateCommand extends BaseCommand {
     public void onReload(CommandSender sender) {
         plugin.reloadMessages();
         plugin.reloadConfig();
-        sender.sendMessage(plugin.getMessages().getString("reload"));
+        sender.sendMessage(plugin.getMessages().getString("command.reload"));
     }
 
     @CatchUnknown
     public void onUnknown(CommandSender sender) {
-        sender.sendMessage(plugin.getMessages().getString("unknown"));
+        sender.sendMessage(plugin.getMessages().getString("command.unknown"));
     }
 }

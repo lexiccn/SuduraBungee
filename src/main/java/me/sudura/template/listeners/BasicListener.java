@@ -13,6 +13,6 @@ public class BasicListener implements Listener {
 
     @EventHandler
     public void onBreakBlock (BlockBreakEvent event) {
-        plugin.getLogger().info(plugin.getConfig().getString("messages.error"));
+        plugin.getLogger().info(plugin.getMessages().getString("event.error"));
     }
 }
