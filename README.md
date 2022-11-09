@@ -1,8 +1,7 @@
-# cropdrops
+# template
 
-Dependency on MCMMO - github.com/Euronite/XpDrop is an alternative without this
-
-Simple, extremely efficient (due to hooking into another plugin) plugin for making Melons & Pumpkins drop XP
+sudura template for sudura plugins
 
 Configuration:
-Coming soon; will allow you to set any material to any XP number when broken
+Empty config file
+Messages file
