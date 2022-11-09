@@ -1,6 +1,5 @@
-name: CropDrops
+name: Template
 version: 1.0
 author: sudura
-main: me.sudura.cropdrops.CropDrops
+main: me.sudura.template.MainClass
 api-version: 1.19
-depend: [mcMMO]

@@ -1,12 +1,13 @@
 plugins {
     `java-library`
     id("io.papermc.paperweight.userdev") version "1.3.8"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     id("xyz.jpenilla.run-paper") version "1.0.6" // Adds runServer and runMojangMappedServer tasks for testing
 }
 
 group = "me.sudura"
-version = "1.0-SNAPSHOT"
-description = "Melon XP for mcMMO [Requires mcMMO]"
+version = "1.0"
+description = "Template"
 
 java {
     // Configure the java toolchain. This allows gradle to auto-provision JDK 17 on systems that only have JDK 8 installed for example.
@@ -14,11 +15,12 @@ java {
 }
 
 repositories {
+    maven ( url = "https://repo.aikar.co/content/groups/aikar/" )
 }
 
 dependencies {
-    compileOnly(files("libs/mcMMO.jar"))
     paperDevBundle("1.19.2-R0.1-SNAPSHOT")
+    implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     // paperweightDevBundle("com.example.paperfork", "1.19.2-R0.1-SNAPSHOT")
 
     // You will need to manually specify the full dependency if using the groovy gradle dsl
@@ -46,11 +48,12 @@ tasks {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
 
-    /*
     reobfJar {
-      // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
-      // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
-      outputJar.set(layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar"))
+        dependsOn(shadowJar)
     }
-     */
+
+    shadowJar {
+        relocate("co.aikar.commands", "me.sudura.template.acf")
+        relocate("co.aikar.locales", "me.sudura.template.locales")
+    }
 }
