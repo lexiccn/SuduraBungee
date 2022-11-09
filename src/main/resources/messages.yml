@@ -1,3 +1,4 @@
 default: "§cJust a default command!"
 error: "§cYou're running a template!"
 reload: "§3Successfully reloaded §bconfig§3 and §bmessages§3!"
+unknown: "§cUnknown subcommand!"

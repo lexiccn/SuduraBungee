@@ -18,7 +18,6 @@ public class TemplateCommand extends BaseCommand {
     @Default
     public void onDefault(CommandSender sender) {
         sender.sendMessage(plugin.getMessages().getString("default"));
-        ChatColor.col
     }
 
     @Subcommand("reload")
@@ -27,5 +26,10 @@ public class TemplateCommand extends BaseCommand {
         plugin.reloadMessages();
         plugin.reloadConfig();
         sender.sendMessage(plugin.getMessages().getString("reload"));
+    }
+
+    @CatchUnknown
+    public void onUnknown(CommandSender sender) {
+        sender.sendMessage(plugin.getMessages().getString("unknown"));
     }
 }
