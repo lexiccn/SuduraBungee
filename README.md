@@ -3,5 +3,5 @@
 sudura template for sudura plugins
 
 Configuration:
-Empty config file
-Messages file
+- Empty config file
+- Messages file
