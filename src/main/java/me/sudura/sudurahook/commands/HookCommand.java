@@ -1,17 +1,16 @@
-package me.sudura.template.commands;
+package me.sudura.sudurahook.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import me.sudura.template.MainClass;
-import org.bukkit.ChatColor;
+import me.sudura.sudurahook.SuduraHook;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-@CommandAlias("template|temp")
-public class TemplateCommand extends BaseCommand {
-    MainClass plugin;
+@CommandAlias("sudurahook")
+@CommandPermission("sudura.hook")
+public class HookCommand extends BaseCommand {
+    SuduraHook plugin;
 
-    public TemplateCommand(MainClass instance){
+    public HookCommand(SuduraHook instance){
         plugin = instance;
     }
 
@@ -21,10 +20,10 @@ public class TemplateCommand extends BaseCommand {
     }
 
     @Subcommand("reload")
+    @CommandPermission("sudura.hook.reload")
     @Description("Reloads the config and messages files")
     public void onReload(CommandSender sender) {
         plugin.reloadMessages();
-        plugin.reloadConfig();
         sender.sendMessage(plugin.getMessages().getString("command.reload"));
     }
 

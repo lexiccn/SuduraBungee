@@ -1,7 +1,6 @@
-# template
+# SuduraHook
 
-sudura template for sudura plugins
+Hooks a bunch of plugins to a bunch of other plugins for sudura
 
 Configuration:
-- Empty config file
 - Messages file

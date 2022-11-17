@@ -1,6 +1,19 @@
 command:
-  default: "§cDefault command output."
-  reload: "§3Successfully reloaded §bconfig§3 and §bmessages§3!"
-  unknown: "§cUnknown subcommand output."
+  default: "§cPlease specify a subcommand!"
+  reload: "§3Successfully reloaded §bmessages§3!"
+  unknown: "§cUnknown subcommand!"
 event:
-  error: "§cYou're running a template!"
+  blocked:
+    towny:
+      pvp: "§cYou can't do this in a PVP chunk!"
+      arena: "§cYou can't do this in an arena!"
+      wild: "§cYou can't do this in the wilderness!"
+      siegewar: "§cYou can't do this in a siege zone!"
+    combatlogx: "§cYou can't do this in combat!"
+  blocked-other:
+    towny:
+      pvp: "§cYou can't do this to someone in a PVP chunk!"
+      arena: "§cYou can't do this to someone in an arena!"
+      wild: "§cYou can't do this to someone in the wilderness!"
+      siegewar: "§cYou can't do this to someone in a siege zone!"
+    combatlogx: "§cYou can't do this to someone in combat!"

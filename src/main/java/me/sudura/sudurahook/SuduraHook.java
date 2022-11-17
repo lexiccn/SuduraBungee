@@ -1,28 +1,32 @@
-package me.sudura.template;
+package me.sudura.sudurahook;
 
 import co.aikar.commands.PaperCommandManager;
-import me.sudura.template.commands.TemplateCommand;
-import me.sudura.template.listeners.BasicListener;
+import com.github.sirblobman.combatlogx.api.ICombatLogX;
+import me.sudura.sudurahook.commands.HookCommand;
+import me.sudura.sudurahook.listeners.HookListener;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-public class MainClass extends JavaPlugin {
+public class SuduraHook extends JavaPlugin {
     private File messagesFile;
     private FileConfiguration messages;
+    private ICombatLogX combatLogX;
     public void onEnable() {
+        combatLogX = (ICombatLogX) Bukkit.getPluginManager().getPlugin("CombatLogX");
         PaperCommandManager manager = new PaperCommandManager(this);
         this.saveDefaultMessages();
-        this.saveDefaultConfig();
-        manager.registerCommand(new TemplateCommand(this));
-        this.getServer().getPluginManager().registerEvents(new BasicListener(this), this);
+        manager.registerCommand(new HookCommand(this));
+        this.getServer().getPluginManager().registerEvents(new HookListener(this), this);
     }
 
     public FileConfiguration getMessages() {
         return this.messages;
     }
+    public ICombatLogX getCombatLogX() { return this.combatLogX; }
 
     public void reloadMessages() {
         messages = YamlConfiguration.loadConfiguration(messagesFile);

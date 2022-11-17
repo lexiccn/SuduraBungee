@@ -1,5 +1,6 @@
-name: Template
+name: SuduraHook
 version: 1.0
 author: sudura
-main: me.sudura.template.MainClass
+main: me.sudura.sudurahook.SuduraHook
 api-version: 1.19
+depend: [Towny, TownyChat, SiegeWar, GSit, BlueSlimeCore, CombatLogX, BountyHunters]
