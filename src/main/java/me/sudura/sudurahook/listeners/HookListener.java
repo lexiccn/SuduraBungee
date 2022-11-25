@@ -13,31 +13,27 @@ import dev.geco.gsit.api.event.PrePlayerPlayerSitEvent;
 import dev.geco.gsit.api.event.PrePlayerPoseEvent;
 import me.sudura.sudurahook.SuduraHook;
 import net.ess3.api.events.TPARequestEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
-import org.bukkit.event.entity.PotionSplashEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionType;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import org.bukkit.event.entity.PiglinBarterEvent;
 
 public class HookListener implements Listener {
     SuduraHook plugin;
-    private final Map<UUID, Long> turtleCooldowns = new ConcurrentHashMap<>();
 
     public HookListener(SuduraHook instance) {
         plugin = instance;
     }
 
     //Paper
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onPiglinBarters (PiglinBarterEvent event) {
+        event.setCancelled(true);
+    }
     @EventHandler
     public void onPlayerTogglesGlide (EntityToggleGlideEvent event) {
         if (event.getEntity() instanceof Player player && event.isGliding() && player.getWorld().getEnvironment() != World.Environment.THE_END) {
@@ -128,20 +124,6 @@ public class HookListener implements Listener {
         Location playerLoc = event.getRequester().getPlayer().getLocation();
         Location targetLoc = event.getTarget().getBase().getLocation();
 
-        if (SiegeWarDistanceUtil.isLocationInActiveSiegeAssembly(playerLoc) || SiegeWarDistanceUtil.isLocationInActiveSiegeAssembly(targetLoc)) {
-            event.setCancelled(true);
-            return;
-        }
-
-        if (SiegeWarDistanceUtil.isLocationInActiveSiegeZone(playerLoc) || SiegeWarDistanceUtil.isLocationInActiveSiegeZone(targetLoc)) {
-            event.setCancelled(true);
-            return;
-        }
-
-        if (TownyAPI.getInstance().isWilderness(playerLoc) || TownyAPI.getInstance().isWilderness(targetLoc)) {
-            return;
-        }
-
         if (TownyAPI.getInstance().isPVP(playerLoc) || TownyAPI.getInstance().isPVP(targetLoc)) {
             event.setCancelled(true);
         }
@@ -150,7 +132,7 @@ public class HookListener implements Listener {
     //GSit
     @EventHandler
     public void onEntitySit (PreEntitySitEvent event) {
-        if (event.getEntity() instanceof Player && plugin.getCombatLogX().getCombatManager().isInCombat((Player)event.getEntity())) {
+        if (event.getEntity() instanceof Player player && plugin.getCombatLogX().getCombatManager().isInCombat(player)) {
             event.setCancelled(true);
             return;
         }
