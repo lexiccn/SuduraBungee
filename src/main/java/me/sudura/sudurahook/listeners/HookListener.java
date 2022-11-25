@@ -12,19 +12,39 @@ import dev.geco.gsit.api.event.PrePlayerCrawlEvent;
 import dev.geco.gsit.api.event.PrePlayerPlayerSitEvent;
 import dev.geco.gsit.api.event.PrePlayerPoseEvent;
 import me.sudura.sudurahook.SuduraHook;
+import net.ess3.api.events.TPARequestEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityToggleGlideEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionType;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class HookListener implements Listener {
     SuduraHook plugin;
+    private final Map<UUID, Long> turtleCooldowns = new ConcurrentHashMap<>();
+
     public HookListener(SuduraHook instance) {
         plugin = instance;
     }
 
     //Paper
-    @SuppressWarnings("ConstantConditions")
+    @EventHandler
+    public void onPlayerTogglesGlide (EntityToggleGlideEvent event) {
+        if (event.getEntity() instanceof Player player && event.isGliding() && player.getWorld().getEnvironment() != World.Environment.THE_END) {
+            player.sendMessage("You can only fly in the End!");
+            event.setCancelled(true);
+        }
+    }
     @EventHandler
     public void onPlayerSetsSpawn (PlayerSetSpawnEvent event) {
         Player player = event.getPlayer();
@@ -86,12 +106,44 @@ public class HookListener implements Listener {
             return;
         }
 
+        //This part is wrong; it needs to cancel if not one of these.
         if (townblock.getType() == TownBlockType.INN) {
             return;
         }
 
-        if (townblock.isOwner(resident)) {
+        if (!townblock.isOwner(resident)) {
+            player.sendMessage("§cYou can't do this in a plot that's not an Inn plot, or owned by you!");
+            event.setCancelled(true);
+        }
+    }
+
+    //Essentials
+    @EventHandler
+    public void onTPARequest (TPARequestEvent event) {
+        if (plugin.getCombatLogX().getCombatManager().isInCombat(event.getRequester().getPlayer()) || plugin.getCombatLogX().getCombatManager().isInCombat(event.getTarget().getBase())) {
+            event.setCancelled(true);
             return;
+        }
+
+        Location playerLoc = event.getRequester().getPlayer().getLocation();
+        Location targetLoc = event.getTarget().getBase().getLocation();
+
+        if (SiegeWarDistanceUtil.isLocationInActiveSiegeAssembly(playerLoc) || SiegeWarDistanceUtil.isLocationInActiveSiegeAssembly(targetLoc)) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (SiegeWarDistanceUtil.isLocationInActiveSiegeZone(playerLoc) || SiegeWarDistanceUtil.isLocationInActiveSiegeZone(targetLoc)) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (TownyAPI.getInstance().isWilderness(playerLoc) || TownyAPI.getInstance().isWilderness(targetLoc)) {
+            return;
+        }
+
+        if (TownyAPI.getInstance().isPVP(playerLoc) || TownyAPI.getInstance().isPVP(targetLoc)) {
+            event.setCancelled(true);
         }
     }
 
