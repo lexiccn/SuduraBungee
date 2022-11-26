@@ -1,6 +1,5 @@
-name: SuduraHook
+name: SuduraBungee
 version: 1.0
 author: sudura
-main: me.sudura.sudurahook.SuduraHook
+main: me.sudura.sudurabungee.SuduraBungee
 api-version: 1.19
-depend: [Towny, TownyChat, SiegeWar, GSit, BlueSlimeCore, CombatLogX, BountyHunters]
