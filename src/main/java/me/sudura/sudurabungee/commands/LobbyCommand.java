@@ -14,9 +14,8 @@ public class LobbyCommand extends Command {
 
     public void execute(CommandSender sender, String[] args) {
         if ((sender instanceof ProxiedPlayer player)) {
-            player.sendMessage(new ComponentBuilder("Sending you to the ").color(ChatColor.DARK_AQUA)
-                    .append("lobby").color(ChatColor.AQUA)
-                    .append("!").color(ChatColor.DARK_AQUA)
+            player.sendMessage(new ComponentBuilder("Sending you to: ").color(ChatColor.DARK_AQUA)
+                    .append("Lobby").color(ChatColor.AQUA)
                     .create());
             player.connect(ProxyServer.getInstance().getServerInfo("lobby"));
         }

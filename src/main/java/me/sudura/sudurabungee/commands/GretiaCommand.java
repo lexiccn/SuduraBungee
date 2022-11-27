@@ -14,9 +14,8 @@ public class GretiaCommand extends Command {
 
     public void execute(CommandSender sender, String[] args) {
         if ((sender instanceof ProxiedPlayer player)) {
-            player.sendMessage(new ComponentBuilder("Sending you to ").color(ChatColor.DARK_AQUA)
-                    .append("Gretia").color(ChatColor.AQUA)
-                    .append("!").color(ChatColor.DARK_AQUA)
+            player.sendMessage(new ComponentBuilder("Sending you to: ").color(ChatColor.DARK_AQUA)
+                    .append("Gretia Earth").color(ChatColor.AQUA)
                     .create());
             player.connect(ProxyServer.getInstance().getServerInfo("towny"));
         }
