@@ -1,6 +1,5 @@
-# SuduraHook
+# SuduraBungee
 
-Hooks a bunch of plugins to a bunch of other plugins for sudura
+Simple plugin to add commands to swap between various worlds on sudura.me network
 
-Configuration:
-- Messages file
+Configuration: N/A
